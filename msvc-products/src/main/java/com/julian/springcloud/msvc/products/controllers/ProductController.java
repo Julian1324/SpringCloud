@@ -13,7 +13,7 @@ import com.julian.springcloud.msvc.products.entities.Product;
 import com.julian.springcloud.msvc.products.services.ProductService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping()
 public class ProductController {
     private final ProductService productService;
 

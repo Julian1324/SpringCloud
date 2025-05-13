@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.julian.springcloud.msvc.items.models.Item;
 import com.julian.springcloud.msvc.items.services.ItemService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,11 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Item> detail(@PathVariable Long id) {
+    public ResponseEntity<?> detail(@PathVariable Long id) {
         Optional<Item> item = service.findById(id);
-        if (item.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        if (item.isPresent()) {
+            return ResponseEntity.ok(item.get());
         }
-        return ResponseEntity.ok(item.get());
+        return ResponseEntity.status(404).body(Collections.singletonMap("message", "Item not found"));
     }
 }
